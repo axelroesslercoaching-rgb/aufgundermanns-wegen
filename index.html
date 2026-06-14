@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auf Gundermanns Wegen – Stiller &amp; Kotteck</title>
+  <meta name="description" content="Axel Stiller und Uwe Kotteck spielen Lieder von Gerhard Gundermann, verwoben mit eigenen Stücken und Geschichten. Konzerte in Sachsen und darüber hinaus.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique.woff2') format('woff2'),
+           url('assets/CaslonAntique.woff') format('woff');
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique-Bold.woff2') format('woff2'),
+           url('assets/CaslonAntique-Bold.woff') format('woff');
+      font-weight: bold;
+    }
+
+    :root {
+      --schwarz:    #141A14;
+      --dunkel:     #1C261C;
+      --mittel:     #263626;
+      --gold:       #E8E0D0;
+      --gold-dim:   rgba(232,224,208,.55);
+      --weiss:      #F0EDE6;
+      --weiss-dim:  rgba(240,237,230,.55);
+      --gruen:      #2D5E26;
+      --gruen-hell: #4B8A42;
+      --display:   'Bebas Neue', Impact, sans-serif;
+      --serif:     'Caslon Antique', Georgia, serif;
+      --sans:      'Source Sans 3', system-ui, sans-serif;
+      --radius:    4px;
+      --max:       1160px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--schwarz);
+      color: var(--weiss);
+      font-family: var(--sans);
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3 { line-height: 1.1; }
+
+    .container {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 24px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gruen);
+      flex-shrink: 0;
+    }
+
+    /* ══ NAV ══ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 0;
+      transition: background .3s, padding .3s;
+    }
+    nav.scrolled {
+      background: rgba(30,26,22,.96);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(232,224,208,.1);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: 17px;
+      font-weight: normal;
+      letter-spacing: .03em;
+      color: var(--gold);
+      line-height: 1.2;
+    }
+    .logo span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      transition: transform .3s, opacity .3s;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--schwarz);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s;
+    }
+    .nav-mobile.open { opacity: 1; pointer-events: all; }
+    .nav-mobile ul {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .nav-mobile ul a {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: clamp(28px, 7vw, 48px);
+      letter-spacing: .04em;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-mobile ul a:hover,
+    .nav-mobile ul a.active { color: var(--gold); }
+    .nav-mobile-foot {
+      margin-top: 48px;
+      display: flex;
+      gap: 28px;
+    }
+    .nav-mobile-foot a {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,.3);
+      transition: color .2s;
+    }
+    .nav-mobile-foot a:hover { color: var(--gold); }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* ══ BUTTONS ══ */
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .2s;
+      border-radius: var(--radius);
+      border: none;
+    }
+    .btn-red { background: var(--gruen); color: var(--gold); }
+    .btn-red:hover { background: var(--gruen-hell); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid rgba(232,224,208,.3);
+      color: var(--gold-dim);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .btn-gold { background: var(--gold); color: var(--schwarz); font-weight: 600; }
+    .btn-gold:hover { background: var(--weiss); transform: translateY(-2px); }
+
+    /* ══ HERO ══ */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-photos {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      z-index: 0;
+    }
+    .hero-photo {
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(20%);
+    }
+    .hero-credits {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .hero-credits span {
+      text-align: center;
+      font-size: 10px;
+      color: rgba(232,224,208,.55);
+      letter-spacing: .04em;
+      line-height: 1.4;
+      padding: 0 8px;
+      pointer-events: auto;
+    }
+    .hero-credits a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .hero-credits a:hover {
+      color: #fff;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(20,26,20,.65) 0%,
+        rgba(20,26,20,.6) 50%,
+        rgba(20,26,20,.9) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(100px, 14vw, 160px) clamp(20px, 5vw, 64px) clamp(60px, 10vw, 100px);
+    }
+    .hero-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: rgba(232,224,208,.3);
+    }
+    .hero-title {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(48px, 11vw, 128px);
+      color: var(--weiss);
+      line-height: .95;
+      letter-spacing: .01em;
+      padding-bottom: 36px;
+      position: relative;
+    }
+    .hero-divider {
+      width: 56px;
+      height: 2px;
+      background: var(--gruen);
+      margin: 0 auto 32px;
+    }
+    .hero-tagline {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(16px, 2vw, 21px);
+      color: var(--weiss);
+      max-width: 540px;
+      line-height: 1.65;
+      padding-bottom: 52px;
+      position: relative;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(232,224,208,.25);
+      font-size: 9px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(232,224,208,.3), transparent);
+      animation: scrollDown 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0%,100% { opacity: .3; transform: scaleY(1); }
+      50% { opacity: .1; transform: scaleY(.5); }
+    }
+
+    /* ══ PROGRAMM ══ */
+    .program {
+      background: var(--dunkel);
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+    .program-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(48px, 7vw, 100px);
+      align-items: start;
+    }
+    .program-text h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(30px, 4vw, 48px);
+      color: var(--weiss);
+      padding-bottom: 24px;
+    }
+    .program-text p {
+      color: var(--weiss-dim);
+      padding-bottom: 18px;
+      max-width: 500px;
+    }
+    .program-text p:last-of-type { padding-bottom: 36px; }
+    .program-features {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-top: clamp(64px, 9vw, 110px);
+    }
+    .program-feature {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .program-feature-num {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--gruen);
+      line-height: .9;
+      min-width: 40px;
+      opacity: .65;
+    }
+    .program-feature-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 4px;
+    }
+    .program-feature-text span {
+      font-size: 14px;
+      color: var(--weiss-dim);
+      line-height: 1.5;
+    }
+    @media (max-width: 760px) {
+      .program-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ══ KONZERTE ══ */
+    .concerts {
+      background: var(--schwarz);
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+    .concerts-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .concerts-header h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(30px, 4vw, 48px);
+      color: var(--weiss);
+    }
+    .concert-list { display: flex; flex-direction: column; }
+    .concert-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 22px 0;
+      border-top: 1px solid rgba(232,224,208,.07);
+    }
+    .concert-item:last-child { border-bottom: 1px solid rgba(232,224,208,.07); }
+    .concert-date { text-align: center; }
+    .concert-date-day {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: 36px;
+      color: var(--weiss);
+      line-height: 1;
+    }
+    .concert-date-mon {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .concert-date-year {
+      font-size: 10px;
+      color: rgba(232,224,208,.22);
+      letter-spacing: .06em;
+    }
+    .concert-city {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--weiss);
+      letter-spacing: .02em;
+    }
+    .concert-venue {
+      font-size: 14px;
+      color: var(--weiss-dim);
+      padding-top: 2px;
+    }
+    .concert-time {
+      font-size: 12px;
+      color: rgba(232,224,208,.3);
+      letter-spacing: .08em;
+      padding-top: 4px;
+    }
+    .concert-cta { text-align: right; }
+    .concert-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid rgba(45,94,38,.4);
+      color: rgba(45,94,38,.8);
+      border-radius: 2px;
+    }
+    .concert-badge.today {
+      border-color: var(--gruen);
+      color: var(--gruen);
+      background: rgba(45,94,38,.1);
+    }
+    @media (max-width: 600px) {
+      .concert-item { grid-template-columns: 64px 1fr; }
+      .concert-cta { display: none; }
+    }
+
+    /* ══ DUO ══ */
+    .duo {
+      background: var(--mittel);
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+    .duo-intro {
+      max-width: 640px;
+      margin-bottom: clamp(48px, 7vw, 72px);
+    }
+    .duo-intro h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(30px, 4vw, 48px);
+      color: var(--weiss);
+      padding-bottom: 16px;
+    }
+    .duo-intro p { color: var(--weiss-dim); }
+    .duo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 5vw, 64px);
+    }
+    .duo-card {
+      background: var(--dunkel);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .duo-card-photo {
+      aspect-ratio: 3/4;
+      background: var(--schwarz);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .duo-card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: grayscale(20%);
+    }
+    .duo-placeholder {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,.18);
+    }
+    .duo-card-info { padding: 28px 28px 32px; }
+    .duo-card-role {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gruen);
+      padding-bottom: 8px;
+    }
+    .duo-card-name {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(22px, 3vw, 30px);
+      color: var(--weiss);
+      padding-bottom: 12px;
+    }
+    .duo-card-text {
+      font-size: 15px;
+      color: var(--weiss-dim);
+      line-height: 1.65;
+    }
+    .duo-card-link {
+      display: inline-block;
+      padding-top: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      transition: color .2s;
+    }
+    .duo-card-link:hover { color: var(--gold); }
+    .duo-card-link::after { content: ' →'; }
+    @media (max-width: 640px) {
+      .duo-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: #0E130E;
+      border-top: 1px solid rgba(232,224,208,.07);
+      padding: clamp(48px, 7vw, 80px) 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .footer-brand .logo { display: block; padding-bottom: 16px; }
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--weiss-dim);
+      max-width: 280px;
+      line-height: 1.65;
+    }
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 14px; color: var(--weiss-dim); transition: color .2s; }
+    .footer-col ul a:hover { color: var(--weiss); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 24px;
+    }
+    .footer-bottom p, .footer-bottom a { font-size: 13px; color: rgba(240,237,230,.2); }
+    .footer-bottom a:hover { color: var(--weiss-dim); }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    @media (max-width: 760px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1/-1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        Auf Gundermanns Wegen
+        <span>Stiller &amp; Kotteck</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Start</a></li>
+        <li><a href="termine.html">Termine</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="media.html">Medien</a></li>
+        <li><a href="kontakt.html">Buchung</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+    <ul>
+      <li><a href="index.html" class="active">Start</a></li>
+      <li><a href="termine.html">Termine</a></li>
+      <li><a href="ueber-uns.html">Über uns</a></li>
+      <li><a href="media.html">Medien</a></li>
+      <li><a href="kontakt.html">Buchung</a></li>
+    </ul>
+    <div class="nav-mobile-foot">
+      <a href="/datenschutz/">Datenschutz</a>
+      <a href="/impressum/">Impressum</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-photos">
+      <figure class="hero-photo">
+        <img src="assets/hero-axel.png" alt="Axel Stiller">
+      </figure>
+      <figure class="hero-photo">
+        <img src="assets/hero-gundi.png" alt="Gerhard Gundermann">
+      </figure>
+      <figure class="hero-photo">
+        <img src="assets/hero-uwe.png" alt="Uwe Kotteck">
+      </figure>
+    </div>
+    <div class="hero-credits">
+      <span>Foto: Robert Meyer Photography</span>
+      <span>Claude Lebus / <a href="https://commons.wikimedia.org/wiki/File:Gundermann.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span>
+      <span>Foto: Karla Kotzsch</span>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Stiller &amp; Kotteck</p>
+      <h1 class="hero-title">
+        Auf Gundermanns<br>Wegen
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-tagline">
+        Lieder von Gerhard Gundermann — erzählt<br>
+        mit eigenen Stücken und Geschichten
+      </p>
+      <div class="hero-actions">
+        <a href="termine.html" class="btn btn-red">Termine</a>
+        <a href="ueber-uns.html" class="btn btn-outline">Das Programm</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <section class="program">
+    <div class="container">
+      <div class="program-grid">
+        <div class="program-text">
+          <div class="section-label">Das Programm</div>
+          <h2>Zwei Musiker.<br>Ein Weg.</h2>
+          <p>
+            Axel Stiller und Uwe Kotteck verbindet eine langjährige Freundschaft,
+            entstanden Anfang der 2000er bei Sessions im Gerücht in Dresden-Laubegast.
+            Beide haben Gundis Lieder längst in ihre Soloprogramme aufgenommen —
+            was lag da näher, als die Wege zu vereinen?
+          </p>
+          <p>
+            »Auf Gundermanns Wegen« vereint die Lieblingslieder von Gundi mit eigenen
+            Stücken und Geschichten. Ohne festes Drehbuch — für uns spannend,
+            für euch abwechslungsreich und amüsant.
+          </p>
+          <a href="ueber-uns.html" class="btn btn-outline">Mehr über das Duo</a>
+        </div>
+        <div class="program-features">
+          <div class="program-feature">
+            <div class="program-feature-num">I</div>
+            <div class="program-feature-text">
+              <strong>Gundis Lieder</strong>
+              <span>Schönheit, Sprödigkeit und Aktualität — unverändert seit Jahrzehnten</span>
+            </div>
+          </div>
+          <div class="program-feature">
+            <div class="program-feature-num">II</div>
+            <div class="program-feature-text">
+              <strong>Eigene Stücke</strong>
+              <span>Lieder von Axel und Uwe, die zeigen, wie tief Gundis Musik prägt</span>
+            </div>
+          </div>
+          <div class="program-feature">
+            <div class="program-feature-num">III</div>
+            <div class="program-feature-text">
+              <strong>Kein festes Drehbuch</strong>
+              <span>Jeder Abend entsteht neu — lebendig und offen für den Moment</span>
+            </div>
+          </div>
+          <div class="program-feature">
+            <div class="program-feature-num">IV</div>
+            <div class="program-feature-text">
+              <strong>Gitarren &amp; Klavier</strong>
+              <span>Zwei Stimmen, mehrere Gitarren, Klavier und Mundharmonikas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="concerts">
+    <div class="container">
+      <div class="concerts-header">
+        <div>
+          <div class="section-label">Konzerte</div>
+          <h2>Wann &amp; Wo</h2>
+        </div>
+        <a href="termine.html" class="btn btn-outline">Alle Termine</a>
+      </div>
+      <div class="concert-list">
+
+        <div class="concert-item">
+          <div class="concert-date">
+            <div class="concert-date-day">13</div>
+            <div class="concert-date-mon">Juni</div>
+            <div class="concert-date-year">2026</div>
+          </div>
+          <div class="concert-info">
+            <div class="concert-city">Bautzen</div>
+            <div class="concert-venue">Lange Nacht der Kulturen · Stadtbibliothek, Schloßstraße 10/12</div>
+            <div class="concert-time">20:00 Uhr</div>
+          </div>
+          <div class="concert-cta">
+            <span class="concert-badge today">Heute</span>
+          </div>
+        </div>
+
+        <div class="concert-item">
+          <div class="concert-date">
+            <div class="concert-date-day">24</div>
+            <div class="concert-date-mon">Juni</div>
+            <div class="concert-date-year">2026</div>
+          </div>
+          <div class="concert-info">
+            <div class="concert-city">Dresden</div>
+            <div class="concert-venue">Studentenclub Bärenzwinger, Brühlscher Garten 1</div>
+            <div class="concert-time">19:30 Uhr</div>
+          </div>
+          <div class="concert-cta">
+            <span class="concert-badge">Stiller &amp; Kotteck</span>
+          </div>
+        </div>
+
+        <div class="concert-item">
+          <div class="concert-date">
+            <div class="concert-date-day">21</div>
+            <div class="concert-date-mon">Aug</div>
+            <div class="concert-date-year">2026</div>
+          </div>
+          <div class="concert-info">
+            <div class="concert-city">Dresden</div>
+            <div class="concert-venue">Kirchenhof Seidnitz, Altseidnitz 12</div>
+            <div class="concert-time">TBA</div>
+          </div>
+          <div class="concert-cta">
+            <span class="concert-badge">Stiller &amp; Kotteck</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="duo">
+    <div class="container">
+      <div class="duo-intro">
+        <div class="section-label">Die Musiker</div>
+        <h2>Axel Stiller &amp;<br>Uwe Kotteck</h2>
+        <p>Zwei Liedermacher aus Dresden, die seit über zwei Jahrzehnten gemeinsam auf Gundermanns Spuren unterwegs sind.</p>
+      </div>
+      <div class="duo-grid">
+        <div class="duo-card">
+          <div class="duo-card-photo">
+            <span class="duo-placeholder">Foto folgt</span>
+          </div>
+          <div class="duo-card-info">
+            <div class="duo-card-role">Liedermacher · Dresden</div>
+            <div class="duo-card-name">Axel Stiller</div>
+            <p class="duo-card-text">
+              Über 20 Jahre auf der Bühne. Gundermanns Lieder haben Axel zur
+              deutschsprachigen Liedermacher-Musik gebracht — und über einige
+              Umwege auch dorthin.
+            </p>
+            <a href="https://www.axelstiller.de" target="_blank" rel="noopener" class="duo-card-link">axelstiller.de</a>
+          </div>
+        </div>
+        <div class="duo-card">
+          <div class="duo-card-photo">
+            <span class="duo-placeholder">Foto folgt</span>
+          </div>
+          <div class="duo-card-info">
+            <div class="duo-card-role">Liedermacher · Dresden</div>
+            <div class="duo-card-name">Uwe Kotteck</div>
+            <p class="duo-card-text">
+              Seit Jahren mit eigenen Liedern auf Bühnen des Landes unterwegs.
+              Auch er interpretiert Gundis Lieder in seinen Soloprogrammen —
+              die Partnerschaft mit Axel war nur eine Frage der Zeit.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            Auf Gundermanns Wegen
+            <span>Stiller &amp; Kotteck</span>
+          </a>
+          <p>Lieder von Gerhard Gundermann — verwoben mit eigenen Stücken und Geschichten zweier Liedermacher aus Dresden.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="termine.html">Termine</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+            <li><a href="media.html">Medien</a></li>
+            <li><a href="kontakt.html">Buchung</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="https://www.axelstiller.de" target="_blank" rel="noopener">axelstiller.de</a></li>
+            <li><a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Stiller &amp; Kotteck · aufgundermanns wegen.de</p>
+        <div class="footer-bottom-links">
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="/impressum/">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    const toggle = document.getElementById('nav-toggle');
+    const mobile = document.getElementById('nav-mobile');
+    toggle.addEventListener('click', () => {
+      const open = toggle.classList.toggle('open');
+      mobile.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
+      mobile.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        mobile.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+        mobile.setAttribute('aria-hidden', true);
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+</body>
+</html>
