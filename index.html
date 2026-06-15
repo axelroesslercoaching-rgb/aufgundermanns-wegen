@@ -564,13 +564,27 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
     .duo-card-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top center;
+      object-position: center center;
       filter: grayscale(20%);
+    }
+    .duo-card:first-child .duo-card-photo img {
+      object-position: center top;
+    }
+    .duo-card-credit {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 10px;
+      color: rgba(232,224,208,.45);
+      letter-spacing: .04em;
     }
     .duo-placeholder {
       font-size: 11px;
@@ -863,7 +877,8 @@
       <div class="duo-grid">
         <div class="duo-card">
           <div class="duo-card-photo">
-            <span class="duo-placeholder">Foto folgt</span>
+            <img src="assets/musiker-axel.jpg" alt="Axel Stiller mit Gitarre auf der Festivalbühne">
+            <span class="duo-card-credit">Foto: Robert Meyer Photography</span>
           </div>
           <div class="duo-card-info">
             <div class="duo-card-role">Liedermacher · Dresden</div>
@@ -878,7 +893,8 @@
         </div>
         <div class="duo-card">
           <div class="duo-card-photo">
-            <span class="duo-placeholder">Foto folgt</span>
+            <img src="assets/musiker-uwe.jpg" alt="Uwe Kotteck Portrait">
+            <span class="duo-card-credit">Foto: Karla Kotzsch</span>
           </div>
           <div class="duo-card-info">
             <div class="duo-card-role">Liedermacher · Dresden</div>
