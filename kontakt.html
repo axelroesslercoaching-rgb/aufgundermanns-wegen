@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchung – Auf Gundermanns Wegen · Stiller &amp; Kotteck</title>
+  <meta name="description" content="Stiller &amp; Kotteck buchen — Buchungsanfragen und Kontakt für das Programm Auf Gundermanns Wegen.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique.woff2') format('woff2'),
+           url('assets/CaslonAntique.woff') format('woff');
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique-Bold.woff2') format('woff2'),
+           url('assets/CaslonAntique-Bold.woff') format('woff');
+      font-weight: bold;
+    }
+
+    :root {
+      --schwarz:   #1E1A16;
+      --dunkel:    #2A2520;
+      --mittel:    #3A342C;
+      --gold:      #E8E0D0;
+      --gold-dim:  rgba(232,224,208,.55);
+      --weiss:     #F0EDE6;
+      --weiss-dim: rgba(240,237,230,.55);
+      --rot:       #9d3636;
+      --rot-hell:  #b84040;
+      --serif:     'Caslon Antique', Georgia, serif;
+      --sans:      'Source Sans 3', system-ui, sans-serif;
+      --radius:    4px;
+      --max:       1160px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--schwarz);
+      color: var(--weiss);
+      font-family: var(--sans);
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 0;
+      transition: background .3s, padding .3s;
+    }
+    nav.scrolled {
+      background: rgba(30,26,22,.96);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(232,224,208,.1);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: 17px;
+      font-weight: normal;
+      letter-spacing: .03em;
+      color: var(--gold);
+      line-height: 1.2;
+    }
+    .logo span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      transition: transform .3s, opacity .3s;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--schwarz);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s;
+    }
+    .nav-mobile.open { opacity: 1; pointer-events: all; }
+    .nav-mobile ul {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .nav-mobile ul a {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: clamp(28px, 7vw, 48px);
+      letter-spacing: .04em;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-mobile ul a:hover,
+    .nav-mobile ul a.active { color: var(--gold); }
+    .nav-mobile-foot {
+      margin-top: 48px;
+      display: flex;
+      gap: 28px;
+    }
+    .nav-mobile-foot a {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,.3);
+      transition: color .2s;
+    }
+    .nav-mobile-foot a:hover { color: var(--gold); }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: clamp(130px, 16vw, 180px) 0 clamp(48px, 7vw, 80px);
+      background: var(--dunkel);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .page-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 16px;
+    }
+    .page-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--rot);
+    }
+    .page-eyebrow span {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .page-title {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(52px, 10vw, 112px);
+      color: var(--weiss);
+      line-height: .95;
+      position: relative;
+    }
+
+    /* CONTACT SECTION */
+    .contact-section {
+      background: var(--dunkel);
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: clamp(48px, 7vw, 96px);
+      align-items: start;
+    }
+
+    /* Form */
+    .contact-form-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+    }
+    .contact-form-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--rot);
+      flex-shrink: 0;
+    }
+    .contact-form h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(28px, 4vw, 44px);
+      color: var(--weiss);
+      padding-bottom: 8px;
+    }
+    .contact-form > p {
+      color: var(--weiss-dim);
+      padding-bottom: 36px;
+      max-width: 480px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-bottom: 20px;
+    }
+    .form-group label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--mittel);
+      border: 1px solid rgba(232,224,208,.15);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      color: var(--weiss);
+      font-family: var(--sans);
+      font-size: 16px;
+      transition: border-color .2s;
+      outline: none;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(232,224,208,.4);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(240,237,230,.25); }
+    .form-group textarea { resize: vertical; min-height: 140px; }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group select option { background: var(--mittel); }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .btn-submit {
+      display: inline-block;
+      padding: 15px 40px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .2s;
+      border-radius: var(--radius);
+      background: var(--rot);
+      color: var(--gold);
+      border: none;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { background: var(--rot-hell); transform: translateY(-1px); }
+
+    /* Info sidebar */
+    .contact-info {
+      background: var(--mittel);
+      padding: 36px 32px;
+      border-radius: var(--radius);
+    }
+    .contact-info h3 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: 22px;
+      color: var(--weiss);
+      padding-bottom: 20px;
+    }
+    .info-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--rot);
+      opacity: .5;
+      margin-bottom: 24px;
+    }
+    .info-item { padding-bottom: 22px; }
+    .info-item:last-child { padding-bottom: 0; }
+    .info-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 5px;
+    }
+    .info-item a {
+      font-size: 15px;
+      color: var(--weiss-dim);
+      transition: color .2s;
+      display: block;
+      line-height: 1.5;
+    }
+    .info-item a:hover { color: var(--weiss); }
+    .info-item p {
+      font-size: 14px;
+      color: var(--weiss-dim);
+      line-height: 1.5;
+    }
+    .info-separator {
+      width: 100%;
+      height: 1px;
+      background: rgba(232,224,208,.08);
+      margin: 20px 0;
+    }
+
+    @media (max-width: 760px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--schwarz);
+      padding: clamp(64px, 9vw, 100px) 0;
+    }
+    .faq-section h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(24px, 3.5vw, 36px);
+      color: var(--weiss);
+      padding-bottom: 40px;
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .faq-item {
+      border-top: 1px solid rgba(232,224,208,.08);
+      padding-top: 24px;
+    }
+    .faq-item h4 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: 17px;
+      color: var(--weiss);
+      padding-bottom: 10px;
+    }
+    .faq-item p {
+      font-size: 15px;
+      color: var(--weiss-dim);
+      line-height: 1.6;
+    }
+    @media (max-width: 680px) {
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+
+    /* FOOTER */
+    footer {
+      background: #130F0C;
+      border-top: 1px solid rgba(232,224,208,.07);
+      padding: clamp(48px, 7vw, 80px) 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .footer-brand .logo { display: block; padding-bottom: 16px; }
+    .footer-brand p { font-size: 14px; color: var(--weiss-dim); max-width: 280px; line-height: 1.65; }
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 14px; color: var(--weiss-dim); transition: color .2s; }
+    .footer-col ul a:hover { color: var(--weiss); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 24px;
+    }
+    .footer-bottom p, .footer-bottom a { font-size: 13px; color: rgba(240,237,230,.2); }
+    .footer-bottom a:hover { color: var(--weiss-dim); }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    @media (max-width: 760px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1/-1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        Auf Gundermanns Wegen
+        <span>Stiller &amp; Kotteck</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Start</a></li>
+        <li><a href="termine.html">Termine</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="media.html">Medien</a></li>
+        <li><a href="kontakt.html" class="active">Buchung</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">Start</a></li>
+      <li><a href="termine.html">Termine</a></li>
+      <li><a href="ueber-uns.html">Über uns</a></li>
+      <li><a href="media.html">Medien</a></li>
+      <li><a href="kontakt.html" class="active">Buchung</a></li>
+    </ul>
+    <div class="nav-mobile-foot">
+      <a href="/datenschutz/">Datenschutz</a>
+      <a href="/impressum/">Impressum</a>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <div class="container">
+      <div class="page-eyebrow"><span>Anfragen &amp; Buchung</span></div>
+      <h1 class="page-title">Buchung</h1>
+    </div>
+  </header>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-form">
+          <div class="contact-form-label">Anfrage stellen</div>
+          <h2>Schreib uns</h2>
+          <p>Du möchtest Stiller &amp; Kotteck buchen oder hast eine Frage zum Programm? Wir freuen uns auf deine Nachricht.</p>
+
+          <!-- Hinweis für WordPress-Integration: WPForms-Shortcode hier einfügen -->
+          <!-- [wpforms id="XXX"] -->
+
+          <form action="mailto:axel.stiller@yahoo.de" method="post" enctype="text/plain">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Dein Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" placeholder="deine@mail.de" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="anlass">Art der Anfrage</label>
+              <select id="anlass" name="anlass">
+                <option value="">Worum geht es?</option>
+                <option value="buchung">Buchungsanfrage – Stiller &amp; Kotteck</option>
+                <option value="festival">Festival / Veranstaltungsreihe</option>
+                <option value="privat">Privatveranstaltung</option>
+                <option value="presse">Presse / Medien</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="datum">Wunschdatum (falls bekannt)</label>
+                <input type="text" id="datum" name="datum" placeholder="z.B. Oktober 2026">
+              </div>
+              <div class="form-group">
+                <label for="ort">Ort / Venue</label>
+                <input type="text" id="ort" name="ort" placeholder="Stadt oder Venue">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="nachricht">Nachricht</label>
+              <textarea id="nachricht" name="nachricht" placeholder="Beschreib dein Anliegen …" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Anfrage senden</button>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <h3>Direkt erreichbar</h3>
+          <div class="info-divider"></div>
+
+          <div class="info-item">
+            <div class="info-label">E-Mail</div>
+            <a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">Website Axel Stiller</div>
+            <a href="https://www.axelstiller.de" target="_blank" rel="noopener">www.axelstiller.de</a>
+          </div>
+
+          <div class="info-separator"></div>
+
+          <div class="info-item">
+            <div class="info-label">Das Programm</div>
+            <p>Stiller &amp; Kotteck spielen »Auf Gundermanns Wegen« als Duo-Abend.
+               Geeignet für Clubs, Kulturzentren, Kirchenräume und Festivals
+               jeder Größe.</p>
+          </div>
+
+          <div class="info-item">
+            <div class="info-label">Technischer Aufwand</div>
+            <p>Zwei Gitarren, Klavier (wenn vorhanden), Mundharmonikas.
+               PA-Anlage für kleinere Räume erforderlich,
+               größere Venues nach Absprache.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2>Häufige Fragen</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>Wie lang ist das Programm?</h4>
+          <p>Ein typischer Abend dauert ca. 90 bis 120 Minuten, je nach Wunsch mit oder ohne Pause. Kürzere Sets (60–75 Min.) sind auf Anfrage möglich.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Für welche Veranstaltungen eignet sich das Duo?</h4>
+          <p>Clubs, Kulturzentren, Kirchenkonzerte, Festivals, Jubiläen, Stadtfeste — überall dort, wo gute handgemachte Musik willkommen ist.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Spielen Axel und Uwe auch ohne PA?</h4>
+          <p>Bei kleineren Räumen bis ca. 50 Personen ist ein akustischer Auftritt ohne Verstärkung möglich. Bitte bei der Anfrage angeben.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Wie weit im Voraus sollte man buchen?</h4>
+          <p>Für bevorzugte Termine empfehlen wir eine Anfrage mindestens 4–6 Wochen im Voraus. Bei Festivals oder größeren Events gern früher.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            Auf Gundermanns Wegen
+            <span>Stiller &amp; Kotteck</span>
+          </a>
+          <p>Lieder von Gerhard Gundermann — verwoben mit eigenen Stücken und Geschichten zweier Liedermacher aus Dresden.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="termine.html">Termine</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+            <li><a href="media.html">Medien</a></li>
+            <li><a href="kontakt.html">Buchung</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="https://www.axelstiller.de" target="_blank" rel="noopener">axelstiller.de</a></li>
+            <li><a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Stiller &amp; Kotteck · aufgundermanns wegen.de</p>
+        <div class="footer-bottom-links">
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="/impressum/">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+    const toggle = document.getElementById('nav-toggle');
+    const mobile = document.getElementById('nav-mobile');
+    toggle.addEventListener('click', () => {
+      const open = toggle.classList.toggle('open');
+      mobile.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
+      mobile.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        mobile.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+        mobile.setAttribute('aria-hidden', true);
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+</body>
+</html>
