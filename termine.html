@@ -22,19 +22,19 @@
     }
 
     :root {
-      --schwarz:   #1E1A16;
-      --dunkel:    #2A2520;
-      --mittel:    #3A342C;
-      --gold:      #E8E0D0;
-      --gold-dim:  rgba(232,224,208,.55);
-      --weiss:     #F0EDE6;
-      --weiss-dim: rgba(240,237,230,.55);
-      --rot:       #9d3636;
-      --rot-hell:  #b84040;
-      --serif:     'Caslon Antique', Georgia, serif;
-      --sans:      'Source Sans 3', system-ui, sans-serif;
-      --radius:    4px;
-      --max:       1160px;
+      --schwarz:    #141A14;
+      --dunkel:     #1C261C;
+      --mittel:     #263626;
+      --gold:       #E8E0D0;
+      --gold-dim:   rgba(232,224,208,.55);
+      --weiss:      #F0EDE6;
+      --weiss-dim:  rgba(240,237,230,.55);
+      --gruen:      #2D5E26;
+      --gruen-hell: #4B8A42;
+      --serif:      'Caslon Antique', Georgia, serif;
+      --sans:       'Source Sans 3', system-ui, sans-serif;
+      --radius:     4px;
+      --max:        1160px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -71,7 +71,7 @@
       display: block;
       width: 32px;
       height: 1px;
-      background: var(--rot);
+      background: var(--gruen);
       flex-shrink: 0;
     }
 
@@ -211,8 +211,8 @@
       border-radius: var(--radius);
       border: none;
     }
-    .btn-red { background: var(--rot); color: var(--gold); }
-    .btn-red:hover { background: var(--rot-hell); transform: translateY(-1px); }
+    .btn-red { background: var(--gruen); color: var(--gold); }
+    .btn-red:hover { background: var(--gruen-hell); transform: translateY(-1px); }
     .btn-outline {
       border: 1px solid rgba(232,224,208,.3);
       color: var(--gold-dim);
@@ -245,7 +245,7 @@
       display: block;
       width: 40px;
       height: 1px;
-      background: var(--rot);
+      background: var(--gruen);
     }
     .page-eyebrow span {
       font-size: 10px;
@@ -285,7 +285,7 @@
       font-weight: 600;
       letter-spacing: .26em;
       text-transform: uppercase;
-      color: var(--rot);
+      color: var(--gruen);
       padding-bottom: 8px;
     }
 
@@ -356,8 +356,8 @@
       border-radius: 2px;
     }
     .c-tag.today {
-      border-color: var(--rot);
-      color: var(--rot);
+      border-color: var(--gruen);
+      color: var(--gruen);
       background: rgba(157,54,54,.1);
     }
     .c-tag.tour {
@@ -413,7 +413,7 @@
 
     /* FOOTER */
     footer {
-      background: #130F0C;
+      background: #0E130E;
       border-top: 1px solid rgba(232,224,208,.07);
       padding: clamp(48px, 7vw, 80px) 0 32px;
     }
