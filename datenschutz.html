@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Medien – Auf Gundermanns Wegen · Stiller &amp; Kotteck</title>
-  <meta name="description" content="Videos, Fotos und Pressematerial von Stiller &amp; Kotteck — Auf Gundermanns Wegen.">
+  <title>Datenschutz – Auf Gundermanns Wegen · Stiller &amp; Kotteck</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap');
 
     @font-face {
       font-family: 'Caslon Antique';
@@ -55,25 +54,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-    .section-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding-bottom: 24px;
-    }
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--gruen);
-      flex-shrink: 0;
-    }
 
     /* NAV */
     nav {
@@ -84,7 +64,7 @@
       transition: background .3s, padding .3s;
     }
     nav.scrolled {
-      background: rgba(30,26,22,.96);
+      background: rgba(20,26,20,.96);
       padding: 14px 0;
       border-bottom: 1px solid rgba(232,224,208,.1);
     }
@@ -126,8 +106,7 @@
       color: var(--weiss-dim);
       transition: color .2s;
     }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--gold); }
+    .nav-links a:hover { color: var(--gold); }
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -177,8 +156,7 @@
       color: var(--weiss-dim);
       transition: color .2s;
     }
-    .nav-mobile ul a:hover,
-    .nav-mobile ul a.active { color: var(--gold); }
+    .nav-mobile ul a:hover { color: var(--gold); }
     .nav-mobile-foot {
       margin-top: 48px;
       display: flex;
@@ -197,26 +175,6 @@
       .nav-links { display: none; }
       .nav-toggle { display: flex; }
     }
-
-    /* BUTTONS */
-    .btn {
-      display: inline-block;
-      padding: 12px 28px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: .2s;
-      border-radius: var(--radius);
-      border: none;
-    }
-    .btn-outline {
-      border: 1px solid rgba(232,224,208,.3);
-      color: var(--gold-dim);
-      background: transparent;
-    }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
     /* PAGE HEADER */
     .page-header {
@@ -258,212 +216,43 @@
       font-size: clamp(52px, 10vw, 112px);
       color: var(--weiss);
       line-height: .95;
-      position: relative;
     }
 
-    /* VIDEO SECTION */
-    .video-section {
-      background: var(--schwarz);
-      padding: clamp(72px, 10vw, 120px) 0;
+    /* CONTENT */
+    .legal-section {
+      background: var(--dunkel);
+      padding: clamp(64px, 9vw, 100px) 0;
     }
-    .video-section h2 {
+    .legal-content {
+      max-width: 720px;
+    }
+    .legal-content h2 {
       font-family: 'Caslon Antique', Georgia, serif;
       font-weight: bold;
-      font-size: clamp(28px, 4vw, 44px);
+      font-size: clamp(22px, 3vw, 30px);
       color: var(--weiss);
-      padding-bottom: 48px;
-    }
-    .video-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-    .video-item {}
-    .video-wrap {
-      position: relative;
-      padding-top: 56.25%;
-      background: var(--dunkel);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .video-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    .video-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: var(--mittel);
-    }
-    .video-placeholder-icon {
-      width: 56px;
-      height: 56px;
-      border: 2px solid rgba(232,224,208,.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .video-placeholder-icon::after {
-      content: '▶';
-      color: var(--gold-dim);
-      font-size: 18px;
-      margin-left: 4px;
-    }
-    .video-placeholder span {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: rgba(232,224,208,.2);
-    }
-    .video-title {
-      font-family: 'Caslon Antique', Georgia, serif;
-      font-size: 18px;
-      color: var(--weiss);
-      padding-bottom: 4px;
-    }
-    .video-meta {
-      font-size: 13px;
-      color: var(--weiss-dim);
-    }
-    @media (max-width: 680px) {
-      .video-grid { grid-template-columns: 1fr; }
-    }
-
-    /* FOTO SECTION */
-    .foto-section {
-      background: var(--dunkel);
-      padding: clamp(72px, 10vw, 120px) 0;
-    }
-    .foto-section-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding-bottom: 40px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .foto-section-header h2 {
-      font-family: 'Caslon Antique', Georgia, serif;
-      font-weight: bold;
-      font-size: clamp(28px, 4vw, 44px);
-      color: var(--weiss);
-    }
-    .foto-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .foto-grid .foto-item {
-      aspect-ratio: 4/3;
-      background: var(--mittel);
-      border-radius: var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .foto-grid .foto-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .4s;
-    }
-    .foto-grid .foto-item:hover img { transform: scale(1.04); }
-    .foto-placeholder {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: rgba(232,224,208,.15);
-    }
-    /* first foto item spans 2 columns */
-    .foto-grid .foto-item:first-child {
-      grid-column: span 2;
-      aspect-ratio: 16/9;
-    }
-    @media (max-width: 640px) {
-      .foto-grid { grid-template-columns: 1fr 1fr; }
-      .foto-grid .foto-item:first-child { grid-column: span 2; }
-    }
-
-    /* PRESSE SECTION */
-    .presse-section {
-      background: var(--schwarz);
-      padding: clamp(72px, 10vw, 120px) 0;
-    }
-    .presse-section h2 {
-      font-family: 'Caslon Antique', Georgia, serif;
-      font-weight: bold;
-      font-size: clamp(28px, 4vw, 44px);
-      color: var(--weiss);
-      padding-bottom: 12px;
-    }
-    .presse-section > .container > p {
-      color: var(--weiss-dim);
-      max-width: 560px;
-      padding-bottom: 40px;
-    }
-    .presse-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .presse-card {
-      background: var(--dunkel);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      border: 1px solid rgba(232,224,208,.07);
-      transition: border-color .2s;
-    }
-    .presse-card:hover { border-color: rgba(232,224,208,.18); }
-    .presse-card-icon {
-      font-size: 28px;
       padding-bottom: 16px;
-      opacity: .5;
+      padding-top: 40px;
     }
-    .presse-card h3 {
-      font-family: 'Caslon Antique', Georgia, serif;
-      font-size: 18px;
-      color: var(--weiss);
-      padding-bottom: 8px;
-    }
-    .presse-card p {
-      font-size: 14px;
+    .legal-content h2:first-child { padding-top: 0; }
+    .legal-content p {
       color: var(--weiss-dim);
-      padding-bottom: 20px;
-      line-height: 1.55;
+      font-size: 16px;
+      padding-bottom: 12px;
+      line-height: 1.7;
     }
-    .presse-card-link {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
+    .legal-content a {
       color: var(--gold-dim);
-      transition: color .2s;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
-    .presse-card-link:hover { color: var(--gold); }
-    .presse-card-link::after { content: ' →'; }
-    .presse-card.coming-soon .presse-card-icon,
-    .presse-card.coming-soon h3,
-    .presse-card.coming-soon p { opacity: .45; }
-    .presse-card.coming-soon .presse-card-link {
-      color: rgba(232,224,208,.2);
-      cursor: default;
-    }
-    .presse-card.coming-soon .presse-card-link::after { content: ''; }
-    @media (max-width: 680px) {
-      .presse-grid { grid-template-columns: 1fr; }
+    .legal-content a:hover { color: var(--gold); }
+    .legal-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gruen);
+      opacity: .5;
+      margin: 8px 0 24px;
     }
 
     /* FOOTER */
@@ -521,7 +310,7 @@
         <li><a href="index.html">Start</a></li>
         <li><a href="termine.html">Termine</a></li>
         <li><a href="ueber-uns.html">Über uns</a></li>
-        <li><a href="media.html" class="active">Medien</a></li>
+        <li><a href="media.html">Medien</a></li>
         <li><a href="kontakt.html">Buchung</a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
@@ -535,7 +324,7 @@
       <li><a href="index.html">Start</a></li>
       <li><a href="termine.html">Termine</a></li>
       <li><a href="ueber-uns.html">Über uns</a></li>
-      <li><a href="media.html" class="active">Medien</a></li>
+      <li><a href="media.html">Medien</a></li>
       <li><a href="kontakt.html">Buchung</a></li>
     </ul>
     <div class="nav-mobile-foot">
@@ -546,92 +335,83 @@
 
   <header class="page-header">
     <div class="container">
-      <div class="page-eyebrow"><span>Fotos, Videos &amp; Presse</span></div>
-      <h1 class="page-title">Medien</h1>
+      <div class="page-eyebrow"><span>Rechtliches</span></div>
+      <h1 class="page-title">Datenschutz</h1>
     </div>
   </header>
 
-  <!-- VIDEOS -->
-  <section class="video-section">
+  <section class="legal-section">
     <div class="container">
-      <div class="section-label">Videos</div>
-      <h2>Auf der Bühne</h2>
-      <div class="video-grid">
+      <div class="legal-content">
 
-        <div class="video-item">
-          <div class="video-wrap">
-            <!-- YouTube-Einbettung: Video-ID eintragen -->
-            <div class="video-placeholder">
-              <div class="video-placeholder-icon"></div>
-              <span>Video folgt</span>
-            </div>
-          </div>
-          <div class="video-title">Konzertmitschnitt</div>
-          <div class="video-meta">Stiller &amp; Kotteck live — wird ergänzt</div>
-        </div>
+        <h2>Verantwortlicher</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Axel Rößler<br>
+          Hermann-Ilgen-Straße 39<br>
+          01445 Radebeul<br>
+          E-Mail: <a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a>
+        </p>
 
-        <div class="video-item">
-          <div class="video-wrap">
-            <div class="video-placeholder">
-              <div class="video-placeholder-icon"></div>
-              <span>Video folgt</span>
-            </div>
-          </div>
-          <div class="video-title">Konzertmitschnitt</div>
-          <div class="video-meta">Stiller &amp; Kotteck live — wird ergänzt</div>
-        </div>
+        <h2>Erhebung und Speicherung personenbezogener Daten</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Beim Besuch dieser Website werden durch den Hosting-Anbieter automatisch Informationen
+          in sogenannten Server-Log-Dateien gespeichert, die dein Browser übermittelt. Dies sind:
+          Browsertyp und -version, verwendetes Betriebssystem, Referrer-URL, Hostname des
+          zugreifenden Rechners, Uhrzeit der Serveranfrage und IP-Adresse.
+        </p>
+        <p>
+          Diese Daten sind nicht bestimmten Personen zuordenbar und werden nicht mit anderen
+          Datenquellen zusammengeführt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO
+          (berechtigtes Interesse am sicheren Betrieb der Website).
+        </p>
 
-      </div>
-    </div>
-  </section>
+        <h2>Google Fonts</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Diese Website nutzt Google Fonts zur einheitlichen Darstellung von Schriftarten.
+          Beim Aufruf einer Seite lädt dein Browser die benötigten Schriften von Google-Servern.
+          Dabei wird deine IP-Adresse an Google übermittelt. Anbieter ist Google LLC,
+          1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.
+        </p>
+        <p>
+          Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Weitere Informationen zu Google Fonts
+          findest du unter <a href="https://developers.google.com/fonts/faq" target="_blank" rel="noopener">developers.google.com/fonts/faq</a>
+          und in der Datenschutzerklärung von Google:
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.
+        </p>
 
-  <!-- FOTOS -->
-  <section class="foto-section">
-    <div class="container">
-      <div class="foto-section-header">
-        <div>
-          <div class="section-label">Fotos</div>
-          <h2>Impressionen</h2>
-        </div>
-      </div>
-      <div class="foto-grid">
-        <div class="foto-item"><span class="foto-placeholder">Foto folgt</span></div>
-        <div class="foto-item"><span class="foto-placeholder">Foto folgt</span></div>
-        <div class="foto-item"><span class="foto-placeholder">Foto folgt</span></div>
-        <div class="foto-item"><span class="foto-placeholder">Foto folgt</span></div>
-        <div class="foto-item"><span class="foto-placeholder">Foto folgt</span></div>
-      </div>
-    </div>
-  </section>
+        <h2>Kontaktformular</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Wenn du uns per Kontaktformular eine Nachricht sendest, werden die Angaben aus dem
+          Formular zur Bearbeitung der Anfrage und für den Fall von Anschlussfragen gespeichert.
+          Diese Daten geben wir nicht ohne deine Einwilligung weiter.
+        </p>
+        <p>
+          Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw.
+          Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen).
+        </p>
 
-  <!-- PRESSE -->
-  <section class="presse-section">
-    <div class="container">
-      <div class="section-label">Presse &amp; Material</div>
-      <h2>Für Veranstalter</h2>
-      <p>Pressematerial, Fotos in Druckqualität und technische Anforderungen auf Anfrage.</p>
-      <div class="presse-grid">
+        <h2>Cookies</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Diese Website setzt keine eigenen Cookies. Google Fonts kann technische Cookies
+          setzen — siehe Abschnitt Google Fonts oben.
+        </p>
 
-        <div class="presse-card coming-soon">
-          <div class="presse-card-icon">📄</div>
-          <h3>Pressetext</h3>
-          <p>Kurz- und Langbiografie des Duos für Programmhefte und Ankündigungen.</p>
-          <span class="presse-card-link">Folgt in Kürze</span>
-        </div>
-
-        <div class="presse-card coming-soon">
-          <div class="presse-card-icon">🖼</div>
-          <h3>Pressefotos</h3>
-          <p>Hochauflösende Fotos für Print und Online — frei zur redaktionellen Verwendung.</p>
-          <span class="presse-card-link">Folgt in Kürze</span>
-        </div>
-
-        <div class="presse-card">
-          <div class="presse-card-icon">✉</div>
-          <h3>Direkte Anfrage</h3>
-          <p>Für spezifische Materialwünsche oder technische Anforderungen einfach schreiben.</p>
-          <a href="kontakt.html" class="presse-card-link">Kontakt aufnehmen</a>
-        </div>
+        <h2>Deine Rechte</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der
+          Verarbeitung deiner personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit.
+          Zudem steht dir ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.
+        </p>
+        <p>
+          Für Anfragen wende dich an:
+          <a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a>
+        </p>
 
       </div>
     </div>
