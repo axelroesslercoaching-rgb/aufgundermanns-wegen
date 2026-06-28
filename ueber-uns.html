@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Über uns – Auf Gundermanns Wegen · Stiller &amp; Kotteck</title>
+  <meta name="description" content="Wer war Gerhard Gundermann? Und wer sind Axel Stiller und Uwe Kotteck? Alles über das Programm und die beiden Liedermacher aus Dresden.">
+  <style>
+    @font-face {
+      font-family: 'Source Sans 3';
+      src: url('assets/SourceSans3.woff2') format('woff2');
+      font-weight: 300 600;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique.woff2') format('woff2'),
+           url('assets/CaslonAntique.woff') format('woff');
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique-Bold.woff2') format('woff2'),
+           url('assets/CaslonAntique-Bold.woff') format('woff');
+      font-weight: bold;
+    }
+
+    :root {
+      --schwarz:    #141A14;
+      --dunkel:     #1C261C;
+      --mittel:     #263626;
+      --gold:       #E8E0D0;
+      --gold-dim:   rgba(232,224,208,.55);
+      --weiss:      #F0EDE6;
+      --weiss-dim:  rgba(240,237,230,.55);
+      --gruen:      #2D5E26;
+      --gruen-hell: #4B8A42;
+      --serif:      'Caslon Antique', Georgia, serif;
+      --sans:       'Source Sans 3', system-ui, sans-serif;
+      --radius:     4px;
+      --max:        1160px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--schwarz);
+      color: var(--weiss);
+      font-family: var(--sans);
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 24px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gruen);
+      flex-shrink: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 0;
+      transition: background .3s, padding .3s;
+    }
+    nav.scrolled {
+      background: rgba(30,26,22,.96);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(232,224,208,.1);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: 17px;
+      font-weight: normal;
+      letter-spacing: .03em;
+      color: var(--gold);
+      line-height: 1.2;
+    }
+    .logo span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      transition: transform .3s, opacity .3s;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--schwarz);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s;
+    }
+    .nav-mobile.open { opacity: 1; pointer-events: all; }
+    .nav-mobile ul {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .nav-mobile ul a {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: clamp(28px, 7vw, 48px);
+      letter-spacing: .04em;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-mobile ul a:hover,
+    .nav-mobile ul a.active { color: var(--gold); }
+    .nav-mobile-foot {
+      margin-top: 48px;
+      display: flex;
+      gap: 28px;
+    }
+    .nav-mobile-foot a {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,.3);
+      transition: color .2s;
+    }
+    .nav-mobile-foot a:hover { color: var(--gold); }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .2s;
+      border-radius: var(--radius);
+      border: none;
+    }
+    .btn-red { background: var(--gruen); color: var(--gold); }
+    .btn-red:hover { background: var(--gruen-hell); transform: translateY(-1px); }
+    .btn-outline {
+      border: 1px solid rgba(232,224,208,.3);
+      color: var(--gold-dim);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: clamp(130px, 16vw, 180px) 0 clamp(48px, 7vw, 80px);
+      background: var(--dunkel);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .page-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 16px;
+    }
+    .page-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gruen);
+    }
+    .page-eyebrow span {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .page-title {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(52px, 10vw, 112px);
+      color: var(--weiss);
+      line-height: .95;
+      position: relative;
+    }
+
+    /* PROGRAMM SECTION */
+    .program-section {
+      background: var(--schwarz);
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+    .program-section h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(28px, 4vw, 44px);
+      color: var(--weiss);
+      padding-bottom: 28px;
+    }
+    .program-section p {
+      color: var(--weiss-dim);
+      max-width: 720px;
+      padding-bottom: 18px;
+    }
+    .program-section p:last-of-type { padding-bottom: 0; }
+
+    /* GUNDERMANN SECTION */
+    .gundi-section {
+      background: var(--dunkel);
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+    .gundi-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: clamp(48px, 7vw, 100px);
+      align-items: start;
+    }
+    .gundi-visual {
+      position: relative;
+    }
+    .gundi-photo-frame {
+      aspect-ratio: 3/4;
+      background: var(--mittel);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .gundi-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: grayscale(30%) sepia(10%);
+    }
+    .gundi-photo-frame .placeholder {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,.18);
+    }
+    /* decorative offset frame */
+    .gundi-visual::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid rgba(157,54,54,.35);
+      border-radius: var(--radius);
+    }
+    .gundi-text h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(28px, 4vw, 44px);
+      color: var(--weiss);
+      padding-bottom: 8px;
+    }
+    .gundi-years {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      color: var(--gruen);
+      padding-bottom: 24px;
+    }
+    .gundi-text p {
+      color: var(--weiss-dim);
+      padding-bottom: 18px;
+    }
+    .gundi-text p:last-of-type { padding-bottom: 0; }
+    .gundi-quote {
+      margin: 32px 0;
+      padding: 24px 28px;
+      border-left: 3px solid var(--gruen);
+      background: rgba(157,54,54,.07);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .gundi-quote p {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(17px, 2vw, 20px);
+      color: var(--weiss);
+      line-height: 1.6;
+      padding-bottom: 8px;
+    }
+    .gundi-quote cite {
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      font-style: normal;
+    }
+    @media (max-width: 760px) {
+      .gundi-grid { grid-template-columns: 1fr; }
+      .gundi-visual { max-width: 320px; }
+    }
+
+    /* MUSIKER SECTION */
+    .musiker-section {
+      background: var(--schwarz);
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+    .musiker-section > .container > .section-label { margin-bottom: 0; }
+    .duo-photo {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: var(--radius);
+      display: block;
+      margin: clamp(32px, 5vw, 56px) 0;
+      filter: grayscale(15%);
+    }
+    .duo-photo-credit {
+      font-size: 11px;
+      color: rgba(232,224,208,.3);
+      letter-spacing: .06em;
+      margin-top: -clamp(28px, 4vw, 44px);
+      margin-bottom: clamp(32px, 5vw, 56px);
+      text-align: right;
+    }
+    .musiker-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      margin-top: clamp(40px, 6vw, 64px);
+    }
+    .musiker-card { display: flex; flex-direction: column; gap: 28px; }
+    .musiker-photo {
+      aspect-ratio: 4/5;
+      background: var(--dunkel);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .musiker-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: grayscale(20%);
+    }
+    .musiker-placeholder {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,.18);
+    }
+    .musiker-role {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gruen);
+      padding-bottom: 6px;
+    }
+    .musiker-name {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(26px, 3.5vw, 38px);
+      color: var(--weiss);
+      padding-bottom: 16px;
+    }
+    .musiker-text p {
+      color: var(--weiss-dim);
+      padding-bottom: 16px;
+      font-size: 16px;
+    }
+    .musiker-text p:last-of-type { padding-bottom: 0; }
+    .musiker-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      transition: color .2s;
+    }
+    .musiker-link:hover { color: var(--gold); }
+    .musiker-link::after { content: ' →'; }
+    @media (max-width: 680px) {
+      .musiker-grid { grid-template-columns: 1fr; }
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0E130E;
+      border-top: 1px solid rgba(232,224,208,.07);
+      padding: clamp(48px, 7vw, 80px) 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .footer-brand .logo { display: block; padding-bottom: 16px; }
+    .footer-brand p { font-size: 14px; color: var(--weiss-dim); max-width: 280px; line-height: 1.65; }
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 14px; color: var(--weiss-dim); transition: color .2s; }
+    .footer-col ul a:hover { color: var(--weiss); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 24px;
+    }
+    .footer-bottom p, .footer-bottom a { font-size: 13px; color: rgba(240,237,230,.2); }
+    .footer-bottom a:hover { color: var(--weiss-dim); }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    @media (max-width: 760px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1/-1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        Auf Gundermanns Wegen
+        <span>Stiller &amp; Kotteck</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Start</a></li>
+        <li><a href="termine.html">Termine</a></li>
+        <li><a href="ueber-uns.html" class="active">Über uns</a></li>
+        <li><a href="media.html">Medien</a></li>
+        <li><a href="kontakt.html">Buchung</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">Start</a></li>
+      <li><a href="termine.html">Termine</a></li>
+      <li><a href="ueber-uns.html" class="active">Über uns</a></li>
+      <li><a href="media.html">Medien</a></li>
+      <li><a href="kontakt.html">Buchung</a></li>
+    </ul>
+    <div class="nav-mobile-foot">
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <div class="container">
+      <div class="page-eyebrow"><span>Das Duo</span></div>
+      <h1 class="page-title">Über uns</h1>
+    </div>
+  </header>
+
+  <!-- DAS PROGRAMM -->
+  <section class="program-section">
+    <div class="container">
+      <div class="section-label">Das Programm</div>
+      <h2>»Auf Gundermanns Wegen«</h2>
+      <p>
+        Axel Stiller und Uwe Kotteck verbindet eine langjährige Freundschaft, die Anfang der 2000er
+        Jahre bei einer Session im Gerücht in Dresden-Laubegast begann. Beide haben Gerhard
+        Gundermanns Lieder schon längst in ihre Soloprogramme aufgenommen — was lag da näher,
+        als die Wege zu vereinen?
+      </p>
+      <p>
+        »Auf Gundermanns Wegen« vereint die Lieblingslieder von Gundi mit eigenen Stücken und
+        Geschichten der beiden Musiker. Das Programm folgt dabei keinem festen Drehbuch —
+        so bleibt es für Axel und Uwe selbst spannend und für das Publikum abwechslungsreich
+        und amüsant.
+      </p>
+      <p>
+        Ob im kleinen Club, auf einer Kirchenbühne oder am Lagerfeuer — das Programm lebt von
+        der Intimität des Moments. Zwei Gitarren, ein Klavier, Mundharmonikas und die gemeinsame
+        Leidenschaft für Gundis Lieder.
+      </p>
+    </div>
+  </section>
+
+  <!-- GERHARD GUNDERMANN -->
+  <section class="gundi-section">
+    <div class="container">
+      <div class="gundi-grid">
+        <div class="gundi-visual">
+          <div class="gundi-photo-frame">
+            <img src="assets/hero-gundi.png" alt="Gerhard Gundermann">
+            <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:10px;color:rgba(232,224,208,.45);letter-spacing:.04em;padding:0 8px;">
+              Claude Lebus / <a href="https://commons.wikimedia.org/wiki/File:Gundermann.jpg" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY-SA 3.0</a>
+            </div>
+          </div>
+        </div>
+        <div class="gundi-text">
+          <div class="section-label">Wer war Gerhard Gundermann?</div>
+          <h2>Gerhard Gundermann</h2>
+          <div class="gundi-years">1955 – 1998 · Hoyerswerda, Lausitz</div>
+          <p>
+            Gerhard Gundermann war Liedermacher, Baggerführer und einer der bedeutendsten
+            deutschsprachigen Songschreiber der zweiten Hälfte des 20. Jahrhunderts.
+            In der Lausitz, mitten im Braunkohlenrevier, lebte und arbeitete er —
+            und schrieb Lieder, die aus dieser Welt kamen und weit über sie hinausgingen.
+          </p>
+          <p>
+            Seine Texte sind ehrlich, sperrig und von außergewöhnlicher poetischer Kraft.
+            Lieder über Liebe und Verlust, über die DDR und ihre Menschen, über das Arbeiten
+            und das Zweifeln. Lieder, die kein Alter kennen.
+          </p>
+
+          <div class="gundi-quote">
+            <p>»Gundis Lieder haben nichts von ihrer Schönheit, Sprödigkeit und Aktualität verloren.«</p>
+            <cite>— Axel Stiller</cite>
+          </div>
+
+          <p>
+            Gundermann starb 1998 im Alter von 42 Jahren. Seine Tochter Linda Gundermann
+            führt sein musikalisches Erbe weiter — unter anderem im Bandprojekt
+            »Linda und die lauten Bräute«, das Gundis Lieder mit denen der nächsten
+            Generation vereint.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIE MUSIKER -->
+  <section class="musiker-section">
+    <div class="container">
+      <div class="section-label">Die Musiker</div>
+      <img src="assets/duo-stiller-kotteck.jpg" alt="Axel Stiller und Uwe Kotteck" class="duo-photo">
+      <div class="duo-photo-credit">Foto: Jana Hauke · Fotomana</div>
+      <div class="musiker-grid">
+
+        <div class="musiker-card">
+          <div class="musiker-photo">
+            <img src="assets/musiker-axel.jpg" alt="Axel Stiller">
+          </div>
+          <div class="musiker-text">
+            <div class="musiker-role">Liedermacher · Dresden</div>
+            <div class="musiker-name">Axel Stiller</div>
+            <p>
+              Axel Stiller ist seit über 20 Jahren musikalisch aktiv. Durch Gundermann
+              und seine Lieder kam er zur deutschsprachigen Liedermacher-Musik —
+              und über einige Umwege auch auf die Bühne.
+            </p>
+            <p>
+              Neben »Auf Gundermanns Wegen« ist Axel mit eigenen Soloprogrammen unterwegs,
+              spielt Gundis Lieder in seinem Abend »Axel singt Gundi« und ist Teil des
+              Bandprojekts »Linda und die lauten Bräute«.
+            </p>
+            <p>
+              Neben der Musik arbeitet Axel als Paarberater — was gelegentlich für
+              den ein oder anderen Schwank zwischen den Liedern sorgt.
+            </p>
+            <a href="https://www.axelstiller.de" target="_blank" rel="noopener" class="musiker-link">axelstiller.de</a>
+          </div>
+        </div>
+
+        <div class="musiker-card">
+          <div class="musiker-photo">
+            <img src="assets/musiker-uwe.jpg" alt="Uwe Kotteck">
+          </div>
+          <div class="musiker-text">
+            <div class="musiker-role">Liedermacher · Dresden</div>
+            <div class="musiker-name">Uwe Kotteck</div>
+            <p>
+              Uwe Kotteck steht seit 50 Jahren auf der Bühne — seit 30 Jahren mit
+              eigenem Liederprogramm. Mit eigenen Stücken ist er auf Bühnen des ganzen
+              Landes unterwegs, interpretiert Gundis Lieder in seinen Soloprogrammen
+              und gestaltet literarische Lesungen mit Texten von Lene Voigt und
+              Hermann Hesse.
+            </p>
+            <p>
+              Die musikalische Freundschaft mit Axel begann Anfang der 2000er bei
+              Sessions im Gerücht in Dresden-Laubegast. Was zunächst gemeinsame
+              Abende unter Kollegen waren, ist längst zu einem festen Programm geworden —
+              jedes Konzert entsteht neu, offen und ohne festes Drehbuch.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            Auf Gundermanns Wegen
+            <span>Stiller &amp; Kotteck</span>
+          </a>
+          <p>Lieder von Gerhard Gundermann — verwoben mit eigenen Stücken und Geschichten zweier Liedermacher aus Dresden.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="termine.html">Termine</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+            <li><a href="media.html">Medien</a></li>
+            <li><a href="kontakt.html">Buchung</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="https://www.axelstiller.de" target="_blank" rel="noopener">axelstiller.de</a></li>
+            <li><a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Stiller &amp; Kotteck · aufgundermanns-wegen.de</p>
+        <div class="footer-bottom-links">
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="impressum.html">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+    const toggle = document.getElementById('nav-toggle');
+    const mobile = document.getElementById('nav-mobile');
+    toggle.addEventListener('click', () => {
+      const open = toggle.classList.toggle('open');
+      mobile.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
+      mobile.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        mobile.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+        mobile.setAttribute('aria-hidden', true);
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+</body>
+</html>

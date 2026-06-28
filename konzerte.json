@@ -1,0 +1,66 @@
+[
+  {
+    "datum": "2026-08-21",
+    "stadt": "Dresden",
+    "venue": "Kirchenhof Seidnitz",
+    "adresse": "Altseidnitz 12, 01277 Dresden",
+    "uhrzeit": "TBA",
+    "tags": []
+  },
+  {
+    "datum": "2026-06-24",
+    "stadt": "Dresden",
+    "venue": "Studentenclub Bärenzwinger",
+    "adresse": "Brühlscher Garten 1, 01067 Dresden",
+    "uhrzeit": "19:30 Uhr",
+    "tags": []
+  },
+  {
+    "datum": "2026-06-13",
+    "stadt": "Bautzen",
+    "venue": "Lange Nacht der Kulturen · Stadtbibliothek",
+    "adresse": "Schloßstraße 10/12",
+    "uhrzeit": "20:00 Uhr",
+    "tags": []
+  },
+  {
+    "datum": "2026-06-06",
+    "stadt": "Stralsund",
+    "venue": "Kulturkirche St. Jakobi",
+    "adresse": "Jacobiturmstr. 28a, 18439 Stralsund",
+    "uhrzeit": "19:30 Uhr",
+    "tags": ["Ostseetour"]
+  },
+  {
+    "datum": "2026-06-05",
+    "stadt": "Mölschow / Usedom",
+    "venue": "Usedom Destillerie",
+    "adresse": "",
+    "uhrzeit": "20:00 Uhr",
+    "tags": ["Ostseetour"]
+  },
+  {
+    "datum": "2026-05-31",
+    "stadt": "Warnemünde",
+    "venue": "Konzertreihe »Meeresbrise« · Kurhausgarten Warnemünde",
+    "adresse": "",
+    "uhrzeit": "15:30 Uhr",
+    "tags": ["Ostseetour"]
+  },
+  {
+    "datum": "2026-05-30",
+    "stadt": "Greifswald",
+    "venue": "Kulturbahnhof Greifswald",
+    "adresse": "Osnabrücker Str. 3, 17489 Greifswald",
+    "uhrzeit": "20:00 Uhr",
+    "tags": ["Ostseetour"]
+  },
+  {
+    "datum": "2026-05-23",
+    "stadt": "Dresden",
+    "venue": "St. Pauli Ruine",
+    "adresse": "Königsbrücker Platz 1a, 01097 Dresden",
+    "uhrzeit": "19:30 Uhr",
+    "tags": []
+  }
+]

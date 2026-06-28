@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum – Auf Gundermanns Wegen · Stiller &amp; Kotteck</title>
+  <style>
+    @font-face {
+      font-family: 'Source Sans 3';
+      src: url('assets/SourceSans3.woff2') format('woff2');
+      font-weight: 300 600;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique.woff2') format('woff2'),
+           url('assets/CaslonAntique.woff') format('woff');
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: 'Caslon Antique';
+      src: url('assets/CaslonAntique-Bold.woff2') format('woff2'),
+           url('assets/CaslonAntique-Bold.woff') format('woff');
+      font-weight: bold;
+    }
+
+    :root {
+      --schwarz:    #141A14;
+      --dunkel:     #1C261C;
+      --mittel:     #263626;
+      --gold:       #E8E0D0;
+      --gold-dim:   rgba(232,224,208,.55);
+      --weiss:      #F0EDE6;
+      --weiss-dim:  rgba(240,237,230,.55);
+      --gruen:      #2D5E26;
+      --gruen-hell: #4B8A42;
+      --serif:      'Caslon Antique', Georgia, serif;
+      --sans:       'Source Sans 3', system-ui, sans-serif;
+      --radius:     4px;
+      --max:        1160px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--schwarz);
+      color: var(--weiss);
+      font-family: var(--sans);
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 0;
+      transition: background .3s, padding .3s;
+    }
+    nav.scrolled {
+      background: rgba(20,26,20,.96);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(232,224,208,.1);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      padding: 0 clamp(20px, 5vw, 64px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: 17px;
+      font-weight: normal;
+      letter-spacing: .03em;
+      color: var(--gold);
+      line-height: 1.2;
+    }
+    .logo span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      transition: transform .3s, opacity .3s;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--schwarz);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s;
+    }
+    .nav-mobile.open { opacity: 1; pointer-events: all; }
+    .nav-mobile ul {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .nav-mobile ul a {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-size: clamp(28px, 7vw, 48px);
+      letter-spacing: .04em;
+      color: var(--weiss-dim);
+      transition: color .2s;
+    }
+    .nav-mobile ul a:hover { color: var(--gold); }
+    .nav-mobile-foot {
+      margin-top: 48px;
+      display: flex;
+      gap: 28px;
+    }
+    .nav-mobile-foot a {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(232,224,208,.3);
+      transition: color .2s;
+    }
+    .nav-mobile-foot a:hover { color: var(--gold); }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: clamp(130px, 16vw, 180px) 0 clamp(48px, 7vw, 80px);
+      background: var(--dunkel);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .page-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 16px;
+    }
+    .page-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gruen);
+    }
+    .page-eyebrow span {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .page-title {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(52px, 10vw, 112px);
+      color: var(--weiss);
+      line-height: .95;
+    }
+
+    /* CONTENT */
+    .legal-section {
+      background: var(--dunkel);
+      padding: clamp(64px, 9vw, 100px) 0;
+    }
+    .legal-content {
+      max-width: 720px;
+    }
+    .legal-content h2 {
+      font-family: 'Caslon Antique', Georgia, serif;
+      font-weight: bold;
+      font-size: clamp(22px, 3vw, 30px);
+      color: var(--weiss);
+      padding-bottom: 16px;
+      padding-top: 40px;
+    }
+    .legal-content h2:first-child { padding-top: 0; }
+    .legal-content p {
+      color: var(--weiss-dim);
+      font-size: 16px;
+      padding-bottom: 12px;
+      line-height: 1.7;
+    }
+    .legal-content a {
+      color: var(--gold-dim);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .legal-content a:hover { color: var(--gold); }
+    .legal-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gruen);
+      opacity: .5;
+      margin: 8px 0 24px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0E130E;
+      border-top: 1px solid rgba(232,224,208,.07);
+      padding: clamp(48px, 7vw, 80px) 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .footer-brand .logo { display: block; padding-bottom: 16px; }
+    .footer-brand p { font-size: 14px; color: var(--weiss-dim); max-width: 280px; line-height: 1.65; }
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 14px; color: var(--weiss-dim); transition: color .2s; }
+    .footer-col ul a:hover { color: var(--weiss); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 24px;
+    }
+    .footer-bottom p, .footer-bottom a { font-size: 13px; color: rgba(240,237,230,.2); }
+    .footer-bottom a:hover { color: var(--weiss-dim); }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    @media (max-width: 760px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1/-1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        Auf Gundermanns Wegen
+        <span>Stiller &amp; Kotteck</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Start</a></li>
+        <li><a href="termine.html">Termine</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="media.html">Medien</a></li>
+        <li><a href="kontakt.html">Buchung</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">Start</a></li>
+      <li><a href="termine.html">Termine</a></li>
+      <li><a href="ueber-uns.html">Über uns</a></li>
+      <li><a href="media.html">Medien</a></li>
+      <li><a href="kontakt.html">Buchung</a></li>
+    </ul>
+    <div class="nav-mobile-foot">
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <div class="container">
+      <div class="page-eyebrow"><span>Rechtliches</span></div>
+      <h1 class="page-title">Impressum</h1>
+    </div>
+  </header>
+
+  <section class="legal-section">
+    <div class="container">
+      <div class="legal-content">
+
+        <h2>Angaben gemäß § 5 TMG</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Axel Rößler<br>
+          Hermann-Ilgen-Straße 39<br>
+          01445 Radebeul
+        </p>
+
+        <h2>Kontakt</h2>
+        <div class="legal-divider"></div>
+        <p>
+          E-Mail: <a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a>
+        </p>
+
+        <h2>Inhaltlich verantwortlich</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Axel Rößler (Anschrift wie oben)
+        </p>
+
+        <h2>Haftung für Inhalte</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten
+          nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
+          Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
+          Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+          Tätigkeit hinweisen.
+        </p>
+        <p>
+          Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den
+          allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch
+          erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei
+          Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
+        </p>
+
+        <h2>Haftung für Links</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
+          Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
+          Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
+          Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf
+          mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der
+          Verlinkung nicht erkennbar.
+        </p>
+
+        <h2>Urheberrecht</h2>
+        <div class="legal-divider"></div>
+        <p>
+          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
+          dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
+          der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
+          Zustimmung des jeweiligen Autors bzw. Erstellers.
+        </p>
+        <p>
+          Das Foto von Gerhard Gundermann ist lizenziert unter
+          <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>
+          (Claude Lebus / <a href="https://commons.wikimedia.org/wiki/File:Gundermann.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>).
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            Auf Gundermanns Wegen
+            <span>Stiller &amp; Kotteck</span>
+          </a>
+          <p>Lieder von Gerhard Gundermann — verwoben mit eigenen Stücken und Geschichten zweier Liedermacher aus Dresden.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="termine.html">Termine</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+            <li><a href="media.html">Medien</a></li>
+            <li><a href="kontakt.html">Buchung</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="https://www.axelstiller.de" target="_blank" rel="noopener">axelstiller.de</a></li>
+            <li><a href="mailto:axel.stiller@yahoo.de">axel.stiller@yahoo.de</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Stiller &amp; Kotteck · aufgundermanns wegen.de</p>
+        <div class="footer-bottom-links">
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="impressum.html">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+    const toggle = document.getElementById('nav-toggle');
+    const mobile = document.getElementById('nav-mobile');
+    toggle.addEventListener('click', () => {
+      const open = toggle.classList.toggle('open');
+      mobile.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
+      mobile.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        mobile.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+        mobile.setAttribute('aria-hidden', true);
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+</body>
+</html>
