@@ -286,6 +286,7 @@
     .hero-credits a:hover {
       color: #fff;
     }
+    .credit-mobile-br { display: none; }
     .hero::before {
       content: '';
       position: absolute;
@@ -404,10 +405,16 @@
         inset: 0 0 auto 0;
         height: calc(100vw * 9 / 16);
       }
+      .credit-mobile-br { display: inline; }
       .hero-credits {
         position: absolute;
-        top: calc(100vw * 9 / 16 - 28px);
+        top: calc(100vw * 9 / 16 - 40px);
         bottom: auto;
+      }
+      .hero-credits span {
+        font-size: 7px;
+        padding: 0 4px;
+        line-height: 1.3;
       }
       .hero-content {
         position: relative;
@@ -793,7 +800,7 @@
     </div>
     <div class="hero-credits">
       <span>Foto: Robert Meyer Photography</span>
-      <span>Claude Lebus / <a href="https://commons.wikimedia.org/wiki/File:Gundermann.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span>
+      <span><a href="https://commons.wikimedia.org/wiki/File:Gundermann.jpg" target="_blank" rel="noopener">Claude Lebus</a> / Wikimedia<br class="credit-mobile-br"> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span>
       <span>Foto: Karla Kotzsch</span>
     </div>
     <div class="hero-content">
